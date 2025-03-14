@@ -17,3 +17,6 @@ lint:
 
 clean:
 	rm -rf node_modules yarn.lock package-lock.json && yarn install
+
+format:
+	npx prettier --write .
