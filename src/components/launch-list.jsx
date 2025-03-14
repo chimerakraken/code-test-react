@@ -1,41 +1,41 @@
-'use client'
+'use client';
 
-import React from 'react'
-import { useEffect, useRef } from 'react'
-import LaunchItem from './launch-item'
-import Loading from './loading'
+import React from 'react';
+import { useEffect, useRef } from 'react';
+import LaunchItem from './launch-item';
+import Loading from './loading';
 
 export default function LaunchList({ launches, loadMore, hasMore, isLoading }) {
-  const observer = useRef(null)
-  const lastLaunchElementRef = useRef(null)
+  const observer = useRef(null);
+  const lastLaunchElementRef = useRef(null);
 
   useEffect(() => {
     // Disconnect previous observer
     if (observer.current) {
-      observer.current.disconnect()
+      observer.current.disconnect();
     }
 
     // Create new observer
     observer.current = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting && hasMore && !isLoading) {
-          loadMore()
+          loadMore();
         }
       },
       { threshold: 0.5 }
-    )
+    );
 
     // Observe last element
     if (lastLaunchElementRef.current) {
-      observer.current.observe(lastLaunchElementRef.current)
+      observer.current.observe(lastLaunchElementRef.current);
     }
 
     return () => {
       if (observer.current) {
-        observer.current.disconnect()
+        observer.current.disconnect();
       }
-    }
-  }, [launches, hasMore, isLoading, loadMore])
+    };
+  }, [launches, hasMore, isLoading, loadMore]);
 
   return (
     <div className="launch-list">
@@ -54,5 +54,5 @@ export default function LaunchList({ launches, loadMore, hasMore, isLoading }) {
         </div>
       )}
     </div>
-  )
+  );
 }

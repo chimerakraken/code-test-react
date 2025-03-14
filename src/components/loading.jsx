@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default function Loading() {
   return (
@@ -6,5 +6,5 @@ export default function Loading() {
       <div className="spinner"></div>
       <p>Loading launches...</p>
     </div>
-  )
+  );
 }

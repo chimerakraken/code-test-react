@@ -1,71 +1,71 @@
-import React from 'react'
-import './App.css'
-import { useState, useEffect, useCallback } from 'react'
-import Loading from '../src/components/loading'
-import LaunchList from '../src/components/launch-list'
-import SearchBar from '../src/components/search-bar'
-import '../src/assets/scss/styles.css'
+import React from 'react';
+import './App.css';
+import { useState, useEffect, useCallback } from 'react';
+import Loading from '../src/components/loading';
+import LaunchList from '../src/components/launch-list';
+import SearchBar from '../src/components/search-bar';
+import '../src/assets/scss/styles.css';
 
 export function SpaceXLaunches() {
-  const [launches, setLaunches] = useState([])
-  const [filteredLaunches, setFilteredLaunches] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [page, setPage] = useState(1)
-  const [hasMore, setHasMore] = useState(true)
-  const [searchTerm, setSearchTerm] = useState('')
-  const ITEMS_PER_PAGE = 10
+  const [launches, setLaunches] = useState([]);
+  const [filteredLaunches, setFilteredLaunches] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const ITEMS_PER_PAGE = 10;
 
   // Fetch launches data
   const fetchLaunches = useCallback(async (pageNum) => {
     try {
-      setIsLoading(true)
+      setIsLoading(true);
       const response = await fetch(
         `https://api.spacexdata.com/v3/launches?limit=${ITEMS_PER_PAGE}&offset=${(pageNum - 1) * ITEMS_PER_PAGE}`
-      )
-      const data = await response.json()
+      );
+      const data = await response.json();
 
       if (data.length === 0) {
-        setHasMore(false)
+        setHasMore(false);
       } else {
-        setLaunches((prevLaunches) => [...prevLaunches, ...data])
+        setLaunches((prevLaunches) => [...prevLaunches, ...data]);
       }
-      setIsLoading(false)
+      setIsLoading(false);
     } catch (error) {
-      console.error('Error fetching launches:', error)
-      setIsLoading(false)
+      console.error('Error fetching launches:', error);
+      setIsLoading(false);
     }
-  }, [])
+  }, []);
 
   // Initial data fetch
   useEffect(() => {
-    fetchLaunches(page)
-  }, [page, fetchLaunches])
+    fetchLaunches(page);
+  }, [page, fetchLaunches]);
 
   // Filter launches based on search term
   useEffect(() => {
     if (searchTerm.trim() === '') {
-      setFilteredLaunches(launches)
+      setFilteredLaunches(launches);
     } else {
       const filtered = launches.filter(
         (launch) =>
           launch.mission_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           launch.rocket.rocket_name.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-      setFilteredLaunches(filtered)
+      );
+      setFilteredLaunches(filtered);
     }
-  }, [searchTerm, launches])
+  }, [searchTerm, launches]);
 
   // Handle search input
   const handleSearch = (term) => {
-    setSearchTerm(term)
-  }
+    setSearchTerm(term);
+  };
 
   // Load more data when user scrolls to bottom
   const loadMore = () => {
     if (!isLoading && hasMore) {
-      setPage((prevPage) => prevPage + 1)
+      setPage((prevPage) => prevPage + 1);
     }
-  }
+  };
 
   return (
     <div className="container">
@@ -95,7 +95,7 @@ export function SpaceXLaunches() {
         </>
       )}
     </div>
-  )
+  );
 }
 
 function App() {
@@ -103,7 +103,7 @@ function App() {
     <div className="App">
       <SpaceXLaunches />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,9 +1,9 @@
-import React from 'react'
-import moment from 'moment'
+import React from 'react';
+import moment from 'moment';
 
 export default function LaunchItem({ launch }) {
-  const launchDate = moment(launch.launch_date_utc).format('LL') // e.g., "March 13, 2025"
-  const timeAgo = moment(launch.launch_date_utc).fromNow() // e.g., "2 days ago"
+  const launchDate = moment(launch.launch_date_utc).format('LL'); // e.g., "March 13, 2025"
+  const timeAgo = moment(launch.launch_date_utc).fromNow(); // e.g., "2 days ago"
 
   return (
     <div className="launch-item">
@@ -13,8 +13,8 @@ export default function LaunchItem({ launch }) {
             src={launch.links.mission_patch_small || '/placeholder.svg'}
             alt={`${launch.mission_name} patch`}
             onError={(e) => {
-              e.currentTarget.src = '/placeholder.svg?height=100&width=100'
-              e.currentTarget.alt = 'Mission patch unavailable'
+              e.currentTarget.src = '/placeholder.svg?height=100&width=100';
+              e.currentTarget.alt = 'Mission patch unavailable';
             }}
           />
         ) : (
@@ -65,5 +65,5 @@ export default function LaunchItem({ launch }) {
         </div>
       </div>
     </div>
-  )
+  );
 }

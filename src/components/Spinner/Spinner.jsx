@@ -1,5 +1,5 @@
-import React from 'react'
-import './spinner.scss'
+import React from 'react';
+import './spinner.scss';
 
 function Spinner(props) {
   return (
@@ -8,11 +8,11 @@ function Spinner(props) {
       <div />
       <div />
     </div>
-  )
+  );
 }
 
 Spinner.defaultProps = {
   color: null,
-}
+};
 
-export default Spinner
+export default Spinner;

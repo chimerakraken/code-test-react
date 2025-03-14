@@ -1,15 +1,15 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 export default function SearchBar({ onSearch }) {
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (e) => {
-    const value = e.target.value
-    setSearchTerm(value)
-    onSearch(value)
-  }
+    const value = e.target.value;
+    setSearchTerm(value);
+    onSearch(value);
+  };
 
   return (
     <div className="search-bar">
@@ -20,5 +20,5 @@ export default function SearchBar({ onSearch }) {
         onChange={handleChange}
       />
     </div>
-  )
+  );
 }
